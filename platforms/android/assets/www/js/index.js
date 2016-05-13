@@ -37,19 +37,9 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        // var parentElement = document.getElementById(id);
-        // var listeningElement = parentElement.querySelector('.listening');
-        // var receivedElement = parentElement.querySelector('.received');
-        //
-        // listeningElement.setAttribute('style', 'display:none;');
-        // receivedElement.setAttribute('style', 'display:block;');
-        //
-        // console.log('Received Event: ' + id);
-
         var connectionType = navigator.connection.type;
         if(connectionType == "wifi") {
             navigator.notification.alert("We are not doing repairs at home.", this.doNothing(), connectionType, "euh OK...");
-            navigator.notification.beep(1);
         }
         else if(connectionType == "none") {
             navigator.notification.alert("Sorry you almost tumbled. Please report this later when connected to network.", this.doNothing(), connectionType, "euh OK...");
@@ -57,7 +47,26 @@ var app = {
         else {
             // navigator.notification.alert("Unknown network connection type", this.doNothing(), connectionType, "euh OK...");
         }
+
+        document.addEventListener("resume", this.resumeApp, false);
+        document.addEventListener("volumedownbutton", this.volumedown, false);
+        document.addEventListener("volumeupbutton", this.volumeup, false);
     },
+
+
+    resumeApp: function() {
+        alert("resume");
+        // navigator.notification.alert("Welcome back! Glad you survived your tumble!", this.doNothing(), "Resume", "euh OK...");
+    },
+
+    volumedown: function() {
+        alert("not implemented yet");
+    },
+
+    volumeup: function() {
+        alert("not implemented yet");
+    },
+
 
     doNothing: function() {
         document.getElementById("deviceplatform").textContent = device.platform;
@@ -65,5 +74,70 @@ var app = {
         document.getElementById("deviceversion").textContent = device.version;
         document.getElementById("devicemodel").textContent = device.model;
         document.getElementById("devicename").textContent = device.name;
+        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onError);
+        // document.getElementById("txtlocation").textContent = "lat: " + navigator.geolocation.getCurrentPosition().coords.latitude + " lon: " + navigator.geolocation.getCurrentPosition().coords.longitude;
+
+    },
+
+    onSuccess: function(position) {
+        // alert("succes gps: lat: " +  );
+        document.getElementById("txtlocation").textContent = "lat: " + position.coords.latitude + " lon: " + position.coords.longitude;
+    },
+
+    onError: function() {
+        alert("error gps");
     }
 };
+
+
+function getPicture() {
+    navigator.camera.getPicture(onCameraSuccess, onCamerFailure);
+}
+
+function onCameraSuccess() {
+    alert("camera success");
+}
+
+function onCamerFailure() {
+    alert("camera alert");
+}
+
+function checkContacts() {
+    var contactFields = ["displayName", "name"];
+    var options = {
+        filter: "Wile E Coyote"
+    };
+    var contact = navigator.contacts.find(contactFields, onSuccessContact, onFailureContact, options);
+}
+
+function onSuccessContact(contacts) {
+    alert(contacts.length + " contacts found")
+    if(contacts.length > 0) {
+        for (var i = 0; i < contacts.length; i++) {
+            console.log("Contact[" + i + "]: " + JSON.stringify(contacts[i]));
+        }
+    }
+    else {
+        alert("create wil e coyote!")
+        var newContact = navigator.contacts.create();
+        var fullName = "Wile E Coyote";
+        newContact.displayName = fullName;
+        newContact.save(onSuccessContactSave, onFailureContactSave);
+    }
+}
+
+function onFailureContact() {
+    alert("contact fail!");
+}
+
+function onSuccessContactSave() {
+    alert("wil e coyote saved");
+}
+
+function onFailureContactSave() {
+    alert("wil e coyote NOOOT saved");
+}
+
+function callReinout() {
+    alert("not implemented yet");
+}
