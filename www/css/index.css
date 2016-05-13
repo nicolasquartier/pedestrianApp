@@ -45,6 +45,11 @@ body {
     width:100%;
 }
 
+
+img {
+    margin: 0 auto;
+}
+
 table {
     width: 100%;
 }

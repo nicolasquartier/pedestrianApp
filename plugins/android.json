@@ -13,9 +13,6 @@
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
         },
-        "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
         },
@@ -47,6 +44,9 @@
             "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
         },
         "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
+        },
+        "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.realdolmen.iAlmostTummbledHere"
         },
         "cordova-plugin-network-information": {

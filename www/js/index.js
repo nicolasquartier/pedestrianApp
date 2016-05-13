@@ -141,3 +141,7 @@ function onFailureContactSave() {
 function callReinout() {
     alert("not implemented yet");
 }
+
+function save() {
+    alert("nothing to save");
+}
