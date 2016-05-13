@@ -4,3 +4,4 @@
 **/*.log
 .bithoundrc
 .npmignore
+platforms/
